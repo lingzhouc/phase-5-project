@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
+import Layout from "./Layout";
 
 function App() {
-  return <h1>Project Client</h1>;
+
+  return <Layout />
+
 }
 
 export default App;
