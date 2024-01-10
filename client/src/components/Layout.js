@@ -15,7 +15,7 @@ function Layout() {
     }, []);
 
     const context = {
-        allCardItems
+        allCardItems,
     }
 
     return (

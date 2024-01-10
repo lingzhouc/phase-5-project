@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response
+from flask import request, make_response, jsonify
 from flask_restful import Resource
 
 # Local imports
@@ -39,6 +39,53 @@ class CardById(Resource):
         return make_response(card.to_dict(), 200)
 
 api.add_resource(CardById, "/cards/<int:id>")
+
+class CardReviews(Resource):
+    def get(self, id):
+        try:
+            card = Card.query.get(id)
+            if not card: 
+                return make_response({"error": "Card not found"}, 404)
+            
+            reviews = Review.query.filter_by(id=card.id).all()
+            review_list = [review.to_dict() for review in reviews]
+            return make_response(review_list, 200)
+        except Exception as e:
+            return make_response({"error": str(e)}, 500)
+    
+api.add_resource(CardReviews, "/cards/<int:id>/reviews")
+
+class Users(Resource):
+    def get(self):
+        user_list = [user.to_dict() for user in User.query.all()]
+        return make_response(user_list, 200)
+
+api.add_resource(Users, "/users")
+
+class UserById(Resource):
+    def get(self, id):
+        user = User.query.get(id)
+        if not user:
+            return make_response({"error": "User not found"}, 404)
+        return make_response(user.to_dict(), 200)
+
+api.add_resource(UserById, "/users/<int:id>")
+
+class Reviews(Resource):
+    def get(self):
+        review_list = [review.to_dict() for review in Review.query.all()]
+        return make_response(review_list, 200)
+
+api.add_resource(Reviews, "/reviews")
+
+class ReviewById(Resource):
+    def get(self, id):
+        review = Review.query.get(id)
+        if not review:
+            return make_response({"error": "Review not found"}, 404)
+        return make_response(review.to_dict(), 200)
+
+api.add_resource(ReviewById, "/reviews/<int:id>")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

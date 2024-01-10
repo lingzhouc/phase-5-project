@@ -1,4 +1,8 @@
-function CreditCardItem({name, img, url}) {
+import {Link } from 'react-router-dom';
+
+function CreditCardItem({id, name, img, url}) {
+
+    const cardUrl = `/cards/${id}/reviews`
     
     return (
         <div className="cc-card">
@@ -7,8 +11,7 @@ function CreditCardItem({name, img, url}) {
             <a href={url} target="_blank" rel="noopener noreferrer">
                 Link
             </a>
-
-
+            <Link to={cardUrl}> Reviews </Link>
         </div>
     )
 }

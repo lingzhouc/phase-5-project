@@ -3,12 +3,14 @@ import { useOutletContext } from "react-router-dom"
 
 function CreditCardList() {
 
-    const { allCardItems } = useOutletContext();
-    console.log(allCardItems)
+    const { 
+        allCardItems
+    } = useOutletContext();
 
     const renderCardItems = allCardItems.map((card) => (
         <CreditCardItem 
             key = {card.id}
+            id = {card.id}
             name = {card.name}
             img = {card.img}
             url = {card.url}
@@ -24,8 +26,9 @@ function CreditCardList() {
             earnings = {card.earnings}
         />
     ))
+
     return (
-        <div className="CardBox">
+        <div className="card-box">
             {renderCardItems}
         </div>
     )

@@ -27,7 +27,7 @@ if __name__ == '__main__':
             url = "https://creditcards.chase.com/cash-back-credit-cards/freedom/unlimited",
             issuer = "JPMorgan Chase Bank",
     
-            welcome_bonus = "$200 bonus after $500 in purchases for the first 3 months. Plus, for a limited time, \
+            welcome_bonus = "$200 bonus after $500 in purchases within the first 3 months. Plus, for a limited time, \
 5% cash back on gas station and grocery store purchases (excluding Target and Walmart) on up to $12,000 spent in the first year.",
             annual_fee = 0,
             bal_trans_fee = "0% APR for 15 months",
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     
             welcome_bonus = "Earn a $250 statement credit after you make $3,000 in purchases on your Card in your first 3 months",
             annual_fee = 0,
-            bal_trans_fee = "See issuer bank details*",
+            bal_trans_fee = "See issuing bank for details*",
             intro_apr = "0% APR for 12 months",
             reg_apr = "18.49% to 26.49%* Variable",
             other_details = "",
@@ -76,7 +76,71 @@ if __name__ == '__main__':
             earnings = "Earn 2% cash back on everyday eligible business purchases (up to $50,000 per calendar year), then 1%. Cash back earned is automatically credited to your statement."
         )
 
-        db.session.add_all([card1, card2, card3])
+        card4 = Card(
+            name = "Amex Gold Card",
+            img = "https://icm.aexp-static.com/acquisition/card-art/NUS000000174_480x304_straight_withname.png",
+            url = "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
+            issuer = "American Express",
+
+            welcome_bonus = "60,000 MR points after $6,000 of spend within 6 months.",
+            annual_fee = 250,
+            bal_trans_fee = "",
+            intro_apr = "",
+            reg_apr = "",
+            other_details = "$120/year dining credit, $120/year Uber Cash credit, $100 Hotel experience credit (with 2 nights minimum stay)",
+            
+            user_type = "personal",
+            secured = False,
+            earnings = "Earn 4x points at restaurants worldwide, 4x points on grocery stores, 3x points on flights and 1x points on everything else."
+        )
+
+        card5 = Card(
+            name = "Capital One Quicksilver Student Cash Rewards",
+            img = "https://ecm.capitalone.com/WCM/card/products/quicksilver-card-art.png",
+            url = "https://www.capitalone.com/credit-cards/quicksilver-student/",
+            issuer = "Capital One Bank",
+
+            welcome_bonus = "$50 cash bonus once you spend $100 on purchases within 3 months from account opening",
+            annual_fee = 0,
+            bal_trans_fee = "19.99% - 29.99% variable",
+            intro_apr = "",
+            reg_apr = "19.99% - 29.99% variable",
+            other_details = "",
+            
+            user_type = "student",
+            secured = True,
+            earnings = "Earn unlimited 1.5% cash back on every purchase. Earn 10% cash back on purchases on Uber and Uber Eats."
+        )
+
+        print("Creating and adding Users")
+        user1 = User(
+            name = "Robert Banks",
+            username = "therealrob",
+            email = "therealrob@gmail.com",
+            password = "1234567",
+            favorites = ""
+        )
+
+        print("Creating and adding Reviews")
+        review1 = Review(
+            review = "Lots of freedom. Decently limitless.",
+            user_id = 1,
+            card_id = 1
+        )
+
+        review2 = Review(
+            review = "Discovered it",
+            user_id = 1,
+            card_id = 2
+        )
+
+        review3 = Review(
+            review = "Card means business",
+            user_id = 1,
+            card_id = 3
+        )
+
+        db.session.add_all([card1, card2, card3, card4, card5, review1, review2, review3, user1])
         db.session.commit()
         print("Finished seeding")
 
