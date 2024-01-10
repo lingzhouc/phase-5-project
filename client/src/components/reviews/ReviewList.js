@@ -20,8 +20,14 @@ function ReviewList() {
             review = {review.review}
             created = {review.created_at}
             updated = {review.updated_at}
+            username = {review.user.username}
+            cardName = {review.card.name}
+            cardImg = {review.card.img}
+            cardUrl = {review.card.url}
         />
     ))
+
+    console.log(allReviewItems)
 
     return (
         <div className="review-box">
