@@ -47,7 +47,7 @@ class CardReviews(Resource):
             if not card: 
                 return make_response({"error": "Card not found"}, 404)
             
-            reviews = Review.query.filter_by(id=card.id).all()
+            reviews = Review.query.filter_by(card_id=id).all()
             review_list = [review.to_dict() for review in reviews]
             return make_response(review_list, 200)
         except Exception as e:

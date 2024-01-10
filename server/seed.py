@@ -121,6 +121,14 @@ if __name__ == '__main__':
             favorites = ""
         )
 
+        user2 = User(
+            name = "test",
+            username = "test",
+            email = "test@gmail.com",
+            password = "1234567",
+            favorites = ""
+        )
+
         print("Creating and adding Reviews")
         review1 = Review(
             review = "Lots of freedom. Decently limitless.",
@@ -140,7 +148,13 @@ if __name__ == '__main__':
             card_id = 3
         )
 
-        db.session.add_all([card1, card2, card3, card4, card5, review1, review2, review3, user1])
+        review4 = Review(
+            review = "test",
+            user_id = 2,
+            card_id = 1
+        )
+
+        db.session.add_all([card1, card2, card3, card4, card5, review1, review2, review3, review4, user1, user2])
         db.session.commit()
         print("Finished seeding")
 
