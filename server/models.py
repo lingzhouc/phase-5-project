@@ -24,7 +24,6 @@ class Card(db.Model, SerializerMixin):
     reg_apr = db.Column(db.String)
     other_details = db.Column(db.Text)
 
-    credit_score = db.Column(db.String, nullable=False)
     user_type = db.Column(db.String, nullable=False)
     secured = db.Column(db.Boolean, nullable=False)
     earnings = db.Column(db.String)

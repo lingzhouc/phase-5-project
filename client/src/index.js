@@ -1,8 +1,31 @@
 import React from "react";
 import App from "./components/App";
-import "./index.css";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom/client"
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App />);
+import CreditCardList from "./components/creditCards/CreditCardList"
+import Glossary from "./components/glossary/Glossary"
+import {createBrowserRouter, RouterProvider} from "react-router-dom"
+
+
+
+const router = createBrowserRouter ([
+    {
+        path: "/",
+        element: <App/>,
+        children: [
+            {
+                path: "/cards",
+                element: <CreditCardList />,
+            },
+            {
+                path: "/glossary",
+                element: <Glossary />
+            }
+        ]
+    }
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+    <RouterProvider router={router}/>
+);

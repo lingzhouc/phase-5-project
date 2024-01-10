@@ -1,5 +1,5 @@
 function Glossary() {
-    return
+    return "glossary text"
 }
 
-export default Glossary
+export default Glossary;

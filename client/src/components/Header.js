@@ -1,5 +1,5 @@
 function Header() {
-    return
+    return "hello header text"
 }
 
-export default Header
+export default Header;
