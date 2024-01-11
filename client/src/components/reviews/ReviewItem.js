@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function ReviewItem({id, review, username, created, updated, cardId, onUpdateReview}) {
+function ReviewItem({ id, review, username, created, updated, cardId, onUpdateReview, onDeleteReview, setError }) {
 
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const [isEditing, setEditing] = useState(false);
@@ -9,7 +9,10 @@ function ReviewItem({id, review, username, created, updated, cardId, onUpdateRev
 
     const time = created === updated  ? `Created: ${created}` : `Updated: ${updated}`;
     
-    const toggleDropdown = () => { setDropdownVisible(!isDropdownVisible) }
+    const toggleDropdown = () => { 
+        setDropdownVisible(!isDropdownVisible);
+        setError("");
+    }
     const closeDropdown = () => { setDropdownVisible(false) }
 
     const handleClickOutside = (event) => {
@@ -33,25 +36,24 @@ function ReviewItem({id, review, username, created, updated, cardId, onUpdateRev
         console.log("Save Changes Clicked");
         setEditing(false);
 
-        fetch(`/cards/${cardId}/reviews`, {
+        fetch(`/cards/${cardId}/reviews/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id: id,
-                review: editedReview,
+                review: editedReview
             }),
         })
             .then(resp => {
                 if (resp.ok) {
                     return resp.json();
-                } throw new Error("Error updating review");
+                } throw new Error(`Error updating review - ${resp.status}`);
             })
             .then(data => {
                 // update the review
                 onUpdateReview(data);
-                console.log(data);
+                console.log("Review updated:", data);
             })
             .catch(error => {
                 console.error("Error:", error.message);
@@ -61,6 +63,26 @@ function ReviewItem({id, review, username, created, updated, cardId, onUpdateRev
     // delete request
     const handleDeleteReview = () => {
         console.log("Delete Review Clicked")
+
+        fetch(`/cards/${cardId}/reviews/${id}`, {
+            method: "DELETE", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .then(resp => {
+            if (resp.ok) {
+                return resp.json();
+            } throw new Error(`Error deleting review - ${resp.status}`);
+        })
+        .then(data => {
+            // delete the review
+            onDeleteReview(id);
+            console.log("Review deleted successfully:", data);
+        })
+        .catch(error => {
+            console.error("Error:", error.message);
+        })
     }
 
     const handleChange = (e) => { setEditedReview(e.target.value); };

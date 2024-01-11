@@ -53,22 +53,55 @@ class CardReviews(Resource):
             return make_response(review_list, 200)
         except Exception as e:
             return make_response({"error": str(e)}, 500)
-
-    def patch(self, id):
+    
+    def post(self, id):
         parser = reqparse.RequestParser()
-        parser.add_argument("id", type=int, required=True, help="Review id is required.")
+        parser.add_argument("cardId", type=int, required=True, help="Card id is required.")
+        parser.add_argument("review", type=str, required=True, help="Review content is required.")
+        parser.add_argument("userId", type=int, required=True, help="User id is required.")
+        
+        args = parser.parse_args()
+        review = args["review"]
+        user_id = args["userId"]
+
+        if not review.strip():
+            return make_response({"error": "Review cannot be empty"}, 400)
+
+        card = Card.query.get(id)
+        if not card:
+            return make_response({"error": "Card not found"}, 404)
+        
+        user = User.query.get(user_id)
+        if not user:
+            return make_response({"error": "User not found"}, 404)
+        
+        new_review = Review(review=review, card=card, user=user)
+
+        try:
+            db.session.add(new_review)
+            db.session.commit()
+            return make_response(new_review.to_dict(), 201)
+        except Exception as e:
+            db.session.rollback()
+            return make_response({"error": str(e)}, 500)
+        
+api.add_resource(CardReviews, "/cards/<int:id>/reviews")
+        
+class CardReviewsById(Resource):
+
+    def patch(self, card_id, review_id):
+        parser = reqparse.RequestParser()
         parser.add_argument("review", type=str, required=True, help="Review content is required.")
 
         try:
-            card = Card.query.get(id)
+            card = Card.query.get(card_id)
             if not card: return make_response({"error": "Card not found"}, 404)
 
             args = parser.parse_args()
-            review_id = args["id"]
             new_review = args["review"]
 
             review = Review.query.get(review_id)
-            if not review or review.card_id != id:
+            if not review:
                 return make_response({"error": "Review not found for the specified card"}, 404)
             
             review.review = new_review
@@ -78,9 +111,24 @@ class CardReviews(Resource):
         except Exception as e:
             traceback.print_exc()
             return make_response({"error": str(e)}, 500)
+        
+    def delete(self,card_id, review_id):
+        try: 
+            card = Card.query.get(card_id)
+            if not card: return make_response({"error": "Card not found"}, 404)
+
+            review = Review.query.get(review_id)
+            if not review:
+                return make_response({"error": "Review not found for the specified card"}, 404)
             
-    
-api.add_resource(CardReviews, "/cards/<int:id>/reviews")
+            db.session.delete(review)
+            db.session.commit()
+
+            return make_response({"message": "Review deleted successfully"}, 200)
+        except Exception as e:
+            return make_response({"error": str(e)}, 500)
+
+api.add_resource(CardReviewsById, "/cards/<int:card_id>/reviews/<int:review_id>")
 
 class Users(Resource):
     def get(self):
