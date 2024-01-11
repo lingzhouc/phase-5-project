@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom"
 function CreditCardList() {
 
     const { 
-        allCardItems,
+        allCardItems
     } = useOutletContext();
 
     const renderCardItems = allCardItems.map((card) => (

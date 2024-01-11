@@ -4,13 +4,14 @@
 
 # Remote library imports
 from flask import request, make_response, jsonify
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
 # Local imports
 from config import app, db, api
 
 # Add your model imports
 from models import Card, User, Review
+import traceback
 
 # Views go here!
 
@@ -52,6 +53,32 @@ class CardReviews(Resource):
             return make_response(review_list, 200)
         except Exception as e:
             return make_response({"error": str(e)}, 500)
+
+    def patch(self, id):
+        parser = reqparse.RequestParser()
+        parser.add_argument("id", type=int, required=True, help="Review id is required.")
+        parser.add_argument("review", type=str, required=True, help="Review content is required.")
+
+        try:
+            card = Card.query.get(id)
+            if not card: return make_response({"error": "Card not found"}, 404)
+
+            args = parser.parse_args()
+            review_id = args["id"]
+            new_review = args["review"]
+
+            review = Review.query.get(review_id)
+            if not review or review.card_id != id:
+                return make_response({"error": "Review not found for the specified card"}, 404)
+            
+            review.review = new_review
+            db.session.commit()
+
+            return make_response(review.to_dict(), 200)
+        except Exception as e:
+            traceback.print_exc()
+            return make_response({"error": str(e)}, 500)
+            
     
 api.add_resource(CardReviews, "/cards/<int:id>/reviews")
 

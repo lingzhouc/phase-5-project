@@ -1,11 +1,14 @@
 import ReviewItem from "./ReviewItem";
 import { useEffect, useState } from "react";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext} from "react-router-dom";
 
 function ReviewList() {
 
     const { id } = useParams();
-    const { allCardItems } = useOutletContext();
+
+    const { 
+        allCardItems
+    } = useOutletContext();
 
     const [currentCard, setCurrentCard] = useState([])
     const [allReviewItems, setReviewItems] = useState([])
@@ -36,8 +39,18 @@ function ReviewList() {
             cardName = {review.card.name}
             cardImg = {review.card.img}
             cardUrl = {review.card.url}
+            cardId = {review.card.id}
+            onUpdateReview = {onUpdateReview}
         />
     ))
+
+    function onUpdateReview(updatedReview) {
+        setReviewItems((allReviewItems) => allReviewItems.map((review) => {
+            if (review.id === updatedReview.id) {
+                return updatedReview;
+            } return review;
+        }))
+    }
 
     return (
         <div className="review-box">

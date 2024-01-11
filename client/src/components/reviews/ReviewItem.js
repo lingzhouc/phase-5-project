@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-function ReviewItem({review, username, created, updated}) {
+function ReviewItem({id, review, username, created, updated, cardId, onUpdateReview}) {
 
     const [isDropdownVisible, setDropdownVisible] = useState(false);
     const [isEditing, setEditing] = useState(false);
@@ -32,6 +32,30 @@ function ReviewItem({review, username, created, updated}) {
     const handleSaveReview = () => {
         console.log("Save Changes Clicked");
         setEditing(false);
+
+        fetch(`/cards/${cardId}/reviews`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: id,
+                review: editedReview,
+            }),
+        })
+            .then(resp => {
+                if (resp.ok) {
+                    return resp.json();
+                } throw new Error("Error updating review");
+            })
+            .then(data => {
+                // update the review
+                onUpdateReview(data);
+                console.log(data);
+            })
+            .catch(error => {
+                console.error("Error:", error.message);
+            })
     }
 
     // delete request
