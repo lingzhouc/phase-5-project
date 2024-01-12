@@ -13,6 +13,7 @@ function ReviewItem({ id, review, username, created, updated, cardId, onUpdateRe
         setDropdownVisible(!isDropdownVisible);
         setError("");
     }
+    
     const closeDropdown = () => { setDropdownVisible(false) }
 
     const handleClickOutside = (event) => {
@@ -78,7 +79,7 @@ function ReviewItem({ id, review, username, created, updated, cardId, onUpdateRe
         .then(data => {
             // delete the review
             onDeleteReview(id);
-            console.log("Review deleted successfully:", data);
+            console.log(data);
         })
         .catch(error => {
             console.error("Error:", error.message);

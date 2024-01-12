@@ -6,6 +6,8 @@ import CreditCardList from "./components/creditCards/CreditCardList"
 import CreditCardInfo from "./components/creditCards/CreditCardInfo"
 import ReviewList from "./components/reviews/ReviewList";
 import Glossary from "./components/glossary/Glossary"
+import LogInForm from "./components/auth/LogInForm"
+import SignUpForm from "./components/auth/SignUpForm"
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
@@ -29,6 +31,14 @@ const router = createBrowserRouter ([
             {
                 path: "/glossary",
                 element: <Glossary />
+            },
+            {
+                path: "/login",
+                element: <LogInForm />
+            },
+            {
+                path: "/signup",
+                element: <SignUpForm />
             }          
         ]
     }
