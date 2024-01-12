@@ -10,7 +10,7 @@ from flask_restful import Resource, reqparse
 from config import app, db, api
 
 # Add your model imports
-from models import Card, User, Review
+from models import Card, User, Review, Glossary
 import traceback
 
 # Views go here!
@@ -161,6 +161,13 @@ class ReviewById(Resource):
         return make_response(review.to_dict(), 200)
 
 api.add_resource(ReviewById, "/reviews/<int:id>")
+
+class GlossaryItems(Resource):
+    def get(self):
+        glossary_list = [glossary.to_dict() for glossary in Glossary.query.all()]
+        return make_response(glossary_list, 200)
+
+api.add_resource(GlossaryItems, "/glossary")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

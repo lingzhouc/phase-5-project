@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Card, User, Review
+from models import db, Card, User, Review, Glossary
 
 if __name__ == '__main__':
     fake = Faker()
@@ -112,6 +112,9 @@ if __name__ == '__main__':
             earnings = "Earn unlimited 1.5% cash back on every purchase. Earn 10% cash back on purchases on Uber and Uber Eats."
         )
 
+        db.session.add_all([card1, card2, card3, card4, card5])
+        db.session.commit()
+
         print("Creating and adding Users")
         user1 = User(
             name = "Robert Banks",
@@ -128,6 +131,9 @@ if __name__ == '__main__':
             password = "1234567",
             favorites = ""
         )
+
+        db.session.add_all([user1, user2])
+        db.session.commit()
 
         print("Creating and adding Reviews")
         review1 = Review(
@@ -154,7 +160,39 @@ if __name__ == '__main__':
             card_id = 1
         )
 
-        db.session.add_all([card1, card2, card3, card4, card5, review1, review2, review3, review4, user1, user2])
+        db.session.add_all([review1, review2, review3, review4])
+        db.session.commit()
+
+        print("Creating and adding Glossary items")
+        term1 = Glossary(
+            term = "APR",
+            definition = "Annual Percentage Rate (APR) is the total amount of interest that is to be accrued over the course \
+of a year on a given loan. It is expressed as a percentage and represents any extra costs or fees on the loan.",
+            more_info = "Financial insitutions and lenders are required to disclose the APR before an agreement is made."
+        )
+
+        term2 = Glossary(
+            term = "APY",
+            definition = "Annual Percentage Yield (APY), often confused with APR, refers to the actual amount of interest \
+that is to be earned on an investment over the course of a year taking into account the effects of compound interest.",
+            more_info = "APY works similarly to APR except APR is used for loans whereas APY is used for investments."
+        )
+
+        term3 = Glossary(
+            term = "Balance Transfer",
+            definition = "A balance transfer refers to the process of moving over debt from one place to another. \
+This is often used to move over debt from one or more high interest credit cards to a low or 0% interest rate card.",
+            more_info = ""
+        )
+
+        term4 = Glossary(
+            term = "Product Change",
+            definition = "A product change refers to the process of changing from one credit card to another \
+within the same issuer without having to submit a new application.",
+            more_info = ""
+        )
+
+        db.session.add_all([term1, term2, term3, term4])
         db.session.commit()
         print("Finished seeding")
 
