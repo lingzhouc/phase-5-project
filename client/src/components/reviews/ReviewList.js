@@ -30,15 +30,6 @@ function ReviewList() {
             .then(setReviewItems)
     }, []);
 
-    // useEffect(() => {
-    //     document.addEventListener('click', handleClickOutside);
-    //     return () => { document.removeEventListener('click', handleClickOutside); };
-    // }, []);
-
-    // const handleClickOutside = () => {
-    //     setError("");
-    // };
-
     const renderReviewItems = allReviewItems.map((review) => (
         <ReviewItem
             key = {review.id}
