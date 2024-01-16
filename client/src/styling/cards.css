@@ -1,0 +1,27 @@
+
+.card-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+}   
+
+.cc-card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100%; 
+}
+
+.card-image {
+    margin-bottom: .5rem;
+}
+
+.continue-btn {
+    margin: 1rem;
+    width: 100%;
+}
+
+.reviews-link {
+    display: block;
+    margin-top: 8px;
+}

@@ -1,11 +1,11 @@
 import CreditCardItem from "./CreditCardItem"
 import { useOutletContext } from "react-router-dom"
+import { Container, CssBaseline } from "@mui/material";
+import "../../styling/cards.css"
 
 function CreditCardList() {
 
-    const { 
-        allCardItems
-    } = useOutletContext();
+    const { allCardItems } = useOutletContext();
 
     const renderCardItems = allCardItems.map((card) => (
         <CreditCardItem 
@@ -24,13 +24,18 @@ function CreditCardList() {
             userType = {card.user_type}
             secured = {card.secured}
             earnings = {card.earnings}
+            reviewLength = {card.reviews.length}
         />
     ))
 
+    console.log(allCardItems)
+
+
     return (
-        <div className="card-box">
-            {renderCardItems}
-        </div>
+        <Container component="main" sx={{ width: "60%" }}>
+            <CssBaseline />
+            <div className="card-box">{renderCardItems}</div>
+      </Container>
     )
 }
 
