@@ -1,0 +1,38 @@
+/* glossary */
+#glossary-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+#alphabet-list {
+    margin-right: 30px;
+}
+
+.alphabet-link {
+    color: inherit; 
+    transition: background-color 0.4s;
+}
+
+.alphabet-link:hover,
+.alphabet-link:active {
+    background-color: #ebebeb;
+}
+
+/* glossary item */
+.glossary-card {
+    margin-bottom: 16px;
+}
+
+.more-info-container {
+    display: flex;
+    justify-content: end;
+    margin-top: 8px; 
+}
+
+.more-info {
+    cursor: pointer;
+}
+
+.expanded-content {
+    margin-top: 8px; 
+}

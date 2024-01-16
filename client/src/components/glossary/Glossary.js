@@ -1,5 +1,7 @@
 import GlossaryItem from "./GlossaryItem"
 import { useEffect, useState } from "react";
+import { Container, List, ListItem, Typography, Divider } from "@mui/material";
+import "../../styling/glossary.css"
 
 function Glossary() {
 
@@ -11,22 +13,51 @@ function Glossary() {
             .then(setGlossaryItems)
     }, [])
 
-    console.log(allGlossaryItems)
+    const glossaryMap = allGlossaryItems.reduce((acc, item) => {
+        const firstLetter = item.term[0].toUpperCase();
+        acc[firstLetter] = [...(acc[firstLetter] || []), item];
+        return acc;
+    }, {});
 
-    const renderGlossaryItems = allGlossaryItems.map((item) => (
-        <GlossaryItem
-            key = {item.id}
-            id = {item.id}
-            term = {item.term}
-            definition = {item.definition}
-            moreInfo = {item.moreInfo}
-        />
-    ))
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-    return (
-        <div>
-            {renderGlossaryItems}
+    const renderGlossarySection = ([letter, items]) => (
+        <div key={letter} id={letter}>
+            <Typography variant="h4" gutterBottom>
+                {letter}
+            </Typography>
+            <Divider />
+            <List>
+                {items.map((item) => (
+                    <GlossaryItem
+                        key={item.id}
+                        id={item.id}
+                        term={item.term}
+                        definition={item.definition}
+                        moreInfo={item.moreInfo}
+                    />
+                ))}
+            </List>
         </div>
+    );
+    
+    return (
+        <Container id="glossary-container">
+            <div id="alphabet-list">
+                <List>
+                    {alphabet.map((letter) => (
+                        <ListItem 
+                            key={letter} 
+                            component="a" 
+                            href={`#${letter}`}
+                            className="alphabet-link">
+                            {letter}
+                        </ListItem>
+                    ))}
+                </List>
+            </div>
+            <div>{Object.entries(glossaryMap).map(renderGlossarySection)}</div>
+        </Container>
     )
 }
 
