@@ -1,6 +1,6 @@
 import CreditCardItem from "./CreditCardItem"
 import { useOutletContext } from "react-router-dom"
-import { Container, CssBaseline } from "@mui/material";
+import { Container } from "@mui/material";
 import "../../styling/cards.css"
 
 function CreditCardList() {

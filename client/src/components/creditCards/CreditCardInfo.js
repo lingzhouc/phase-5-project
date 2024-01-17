@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useOutletContext } from "react-router-dom";
-import { Card, CardMedia, CardContent, Typography, Link as MuiLink, Button, Grid, Divider } from "@mui/material";
+import { Card, CardMedia, Typography, Link as MuiLink, Button, Divider } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';

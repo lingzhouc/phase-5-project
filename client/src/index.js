@@ -10,12 +10,17 @@ import LogInForm from "./components/auth/LogInForm"
 import SignUpForm from "./components/auth/SignUpForm"
 
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import HomePage from "./components/HomePage";
 
 const router = createBrowserRouter ([
     {
         path: "/",
         element: <App/>,
         children: [
+            {
+                path: "/",
+                element: <HomePage />
+            },
             {
                 path: "/cards",
                 element: <CreditCardList />
