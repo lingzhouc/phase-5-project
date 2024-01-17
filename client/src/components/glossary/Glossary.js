@@ -23,7 +23,7 @@ function Glossary() {
 
     const renderGlossarySection = ([letter, items]) => (
         <div key={letter} id={letter}>
-            <Typography variant="h4" gutterBottom>
+            <Typography className="letter-header" variant="h4" gutterBottom>
                 {letter}
             </Typography>
             <Divider />

@@ -9,8 +9,16 @@
 /* card item */
 .cc-card {
     margin-bottom: 1rem;
-    padding: 2rem;
     width: 100%; 
+}
+
+.grid-box {
+    padding: 1rem 2rem 2rem 2rem;
+}
+
+.grid-left,
+.grid-right {
+    display: block;
 }
 
 .card-header {
@@ -47,23 +55,47 @@
 .card-info-box {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /* margin-top: 1rem; */
+    padding: 2rem;
+    max-width: 1000px;
+    margin: auto;
 }
 
 .cc-card-info {
-    width: 60%
+    width: 100%;
+    border-color: #cfcfcf;
+    border-style: inset
+}
+
+.card-header {
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    background-color: #e2e1e1;
+    border-bottom-style: inset;
+    border-color: #cfcfcf;
 }
 
 .card-img-box {
     margin: auto;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     width: 40%;
 }
 
 .column-box {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    padding: 1rem;
+    background-color: #e2e1e1;
+    border-style:  solid none;
+    border-color: #cfcfcf;
 }
 
+.reviews-link-info {
+    display: block;
+    padding: 6px 8px;
+}
 
+.properties-box {
+    width: 90%;
+    margin: auto;
+    padding: 2rem .5rem 4rem .5rem;
+}

@@ -77,7 +77,7 @@ function CreditCardInfo() {
             const customText = customTextMap[propertyKey] || "";
 
             return (
-                <Typography key={propertyKey} variant="body2" color="textSecondary">
+                <Typography key={propertyKey} className="card-info" variant="body2" color="textSecondary">
                     {customText === "Annual Fee: " ? (
                         <span><strong>{customText}</strong>{'$' + currentCard[propertyKey]}</span>
                     ) : (
@@ -107,7 +107,7 @@ function CreditCardInfo() {
                         </div>
                     </div>
                     
-                    <CardContent>
+                    <div className="content-box">
                         <div className="card-img-box">
                             <CardMedia
                                 component="img"
@@ -119,7 +119,7 @@ function CreditCardInfo() {
                         <Divider />
                         <div className="column-box">
                             <div className="column-review">
-                                <MuiLink className="reviews-link" component={Link} to={cardReviewsUrl} color="inherit" underline="hover">
+                                <MuiLink className="reviews-link-info" component={Link} to={cardReviewsUrl} color="inherit" underline="hover">
                                     {currentCard.reviews.length > 1 ?  (`${currentCard.reviews.length} reviews`) : (`${currentCard.reviews.length} review`)}
                                 </MuiLink>
                             </div>
@@ -135,8 +135,11 @@ function CreditCardInfo() {
                                 </Button>
                             </div>
                         </div>
-                        {displayProperties()}
-                    </CardContent>
+                        <Divider />
+                        <div className="properties-box">
+                            {displayProperties()}
+                        </div>
+                    </div>
                 </Card>
             ) : (
                 <p>No card found</p>

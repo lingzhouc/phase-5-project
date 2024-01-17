@@ -8,6 +8,13 @@
     margin-right: 30px;
 }
 
+.letter-header {
+    padding-left: 1rem;
+    background-color: #e2e1e1;
+    border-style: groove solid groove solid;
+    border-color: #e2e1e1;
+}
+
 .alphabet-link {
     color: inherit; 
     transition: background-color 0.4s;

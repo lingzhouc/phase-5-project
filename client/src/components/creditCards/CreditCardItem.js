@@ -89,8 +89,8 @@ function CreditCardItem({
                 </div>
             </div>
             
-            <Grid container spacing={5}>
-                <Grid item xs={12} md={4}>
+            <Grid className='grid-box' container spacing={5}>
+                <Grid className='grid-left' item xs={12} md={4}>
                 <CardMedia
                     component="img"
                     className="card-image"
