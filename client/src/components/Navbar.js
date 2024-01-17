@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Button } from "@mui/material";
 import { styled } from "@mui/system";
 
 const StyledAppBar = styled(AppBar)({
-    backgroundColor: "#ffffff", // Set the background color to a color of your choice
+    backgroundColor: "#ffffffff", // Set the background color to a color of your choice
     color: "#000000", // Set the text color to a color of your choice
 });
 

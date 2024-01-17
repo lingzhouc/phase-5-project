@@ -30,7 +30,6 @@ function CreditCardList() {
 
     return (
         <Container component="main" sx={{ width: "60%" }}>
-            <CssBaseline />
             <div className="card-box">{renderCardItems}</div>
       </Container>
     )

@@ -3,6 +3,7 @@ import Navbar from "./Navbar"
 import Footer from "./Footer"
 import { Outlet } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { CssBaseline } from "@mui/material";
 
 function Layout() {
 
@@ -20,6 +21,7 @@ function Layout() {
 
     return (
         <div> 
+            <CssBaseline />
             <Header />
             <Navbar />
             <Outlet context={context} />
