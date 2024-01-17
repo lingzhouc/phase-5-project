@@ -28,9 +28,6 @@ function CreditCardList() {
         />
     ))
 
-    console.log(allCardItems)
-
-
     return (
         <Container component="main" sx={{ width: "60%" }}>
             <CssBaseline />

@@ -22,7 +22,7 @@ function CreditCardItem({
 }) {
 
     const navigate = useNavigate();
-    const cardUrl = `/cards/${id}/reviews`
+    const cardReviewsUrl = `/cards/${id}/reviews`
 
     const [isFavorite, setIsFavorite] = useState(false)
 
@@ -32,8 +32,6 @@ function CreditCardItem({
 
     const handleFavoriteToggle = () => {
         setIsFavorite(!isFavorite)
-        console.log("favorite clicked")
-        console.log(isFavorite)
     }
     
     const displayProperties = () => {
@@ -111,7 +109,7 @@ function CreditCardItem({
                 </Button>
                 </Grid>
                 <Grid item xs={12} md={8}>
-                <MuiLink className="reviews-link" component={Link} to={cardUrl} color="inherit" underline="hover">
+                <MuiLink className="reviews-link" component={Link} to={cardReviewsUrl} color="inherit" underline="hover">
                     {reviewLength > 1 ?  (`${reviewLength} reviews`) : (`${reviewLength} review`)}
                 </MuiLink>
                     {displayProperties()}

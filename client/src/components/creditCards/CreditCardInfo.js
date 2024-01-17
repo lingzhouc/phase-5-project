@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useOutletContext } from "react-router-dom";
+import { Link, useParams, useOutletContext } from "react-router-dom";
 import { Card, CardMedia, CardContent, Typography, Link as MuiLink, Button, Grid, Divider } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -9,28 +9,41 @@ import "../../styling/cards.css"
 function CreditCardInfo() {
 
     const { id } = useParams();
+    const { allCardItems } = useOutletContext();
 
-    const { 
-        allCardItems
-    } = useOutletContext();
-
+    const cardReviewsUrl = `/cards/${id}/reviews`;
     const [currentCard, setCurrentCard] = useState([]);
-
-    const getCardById = (id) => {
-        const cardItem = allCardItems.find((item) => String(item.id) === id);
-        return cardItem || null;
-    };
+    const [isFavorite, setIsFavorite] = useState(false)
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if(allCardItems) {
-            setCurrentCard(getCardById(id))
-        }
+        const fetchData = async () => {
+            try {
+                if (allCardItems.length === 0) {
+                    const response = await fetch(`/cards/${id}`);
+                    const data = await response.json();
+                    setCurrentCard(data);
+                } else {
+                    const cardItem = allCardItems.find((item) => String(item.id) === id);
+                    setCurrentCard(cardItem);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
     }, [allCardItems, id]);
 
+    console.log(allCardItems)
     console.log(currentCard)
 
-    const displayProperties = () => {
+    const handleFavoriteToggle = () => {
+        setIsFavorite(!isFavorite)
+    }
 
+    const displayProperties = () => {
         const displayKeys = [
             "issuer",
             "welcome_bonus",
@@ -76,17 +89,57 @@ function CreditCardInfo() {
     };
 
     return (
-        <div className="cc-info-box">
-            {currentCard && (
-                <Card>
+        <div className="card-info-box">
+            { loading ? (
+                <p>Loading...</p>
+            ) : currentCard ? (
+                <Card className="cc-card-info">
+                    <div className="card-header">
+                        <div className="column card-name">
+                            <Typography variant="h6" fontWeight="bold">
+                                {currentCard.name}
+                            </Typography>
+                        </div>
+                        <div className="column favorite-btn">
+                            <IconButton className={`favorite-btn ${isFavorite ? 'favorited' : ''}`} onClick={handleFavoriteToggle}>
+                                {isFavorite ? <FavoriteIcon color="error"/> : <FavoriteBorderIcon />}
+                            </IconButton>
+                        </div>
+                    </div>
+                    
                     <CardContent>
-                        <Typography variant="h6" gutterBottom>
-                            {currentCard.name}
-                        </Typography>
+                        <div className="card-img-box">
+                            <CardMedia
+                                component="img"
+                                className="card-image"
+                                alt={currentCard.name}
+                                image={currentCard.img}
+                            />
+                        </div>
                         <Divider />
+                        <div className="column-box">
+                            <div className="column-review">
+                                <MuiLink className="reviews-link" component={Link} to={cardReviewsUrl} color="inherit" underline="hover">
+                                    {currentCard.reviews.length > 1 ?  (`${currentCard.reviews.length} reviews`) : (`${currentCard.reviews.length} review`)}
+                                </MuiLink>
+                            </div>
+                            <div className="column-link">
+                                <Button 
+                                    className="apply-now-btn" 
+                                    href={currentCard.url} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    color="inherit"
+                                >
+                                    Apply Now
+                                </Button>
+                            </div>
+                        </div>
                         {displayProperties()}
                     </CardContent>
                 </Card>
+            ) : (
+                <p>No card found</p>
             )}
       </div>
     )
