@@ -1,4 +1,4 @@
-
+/* card list */
 .card-box {
     display: flex;
     flex-direction: column;
@@ -6,14 +6,26 @@
     margin-top: 1rem;
 }   
 
+/* card item */
 .cc-card {
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: 2rem;
     width: 100%; 
+}
+
+.card-header {
+    display:flex;
+    justify-content: space-between;
+}
+
+.card-name {
+    padding-top: 4px;
+    padding-bottom: 8px;
 }
 
 .card-image {
     margin-bottom: .5rem;
+    width: 80%;
 }
 
 .continue-btn {
@@ -21,7 +33,12 @@
     width: 100%;
 }
 
+.card-info {
+    padding: .5rem;
+}
+
 .reviews-link {
     display: block;
-    margin-top: 8px;
+    padding-left: .5rem;
+    padding-bottom: .5rem;
 }
