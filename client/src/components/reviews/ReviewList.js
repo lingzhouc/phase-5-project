@@ -1,6 +1,7 @@
 import ReviewItem from "./ReviewItem";
 import { useEffect, useState } from "react";
 import { useParams, useOutletContext} from "react-router-dom";
+import { Box, Button, Paper, TextField, Typography} from "@mui/material";
 
 function ReviewList() {
 
@@ -45,6 +46,7 @@ function ReviewList() {
             onUpdateReview = {onUpdateReview}
             onDeleteReview = {onDeleteReview}
             setError = {setError}
+            error = {error}
         />
     ))
 
@@ -100,6 +102,7 @@ function ReviewList() {
                 // add the review
                 onAddReview(data)
                 setNewReview("");
+                setError("")
             })
             .catch(error => {
                 setError("Error adding review. Please try again.");
@@ -108,23 +111,35 @@ function ReviewList() {
     }
 
     return (
-        <div className="review-box">
-            <p>Card Name: {currentCard.name}</p>
-            <img src={currentCard.img} alt={currentCard.name} />
+        <Box className="review-box" sx={{ padding: 2 }}>
+            <Typography variant="h4">{currentCard.name}</Typography>
+            <img src={currentCard.img} alt={currentCard.name} style={{ maxWidth: "100%", marginBottom: 2 }} />
             {renderReviewItems}
 
-            <div>
-                <textarea 
+            <Paper elevation={3} sx={{ padding: 2, marginTop: 2 }}>
+                <Typography variant="h6">Leave a Review</Typography>
+                <TextField
+                    multiline
+                    rows={3}
                     value={newReview}
                     onChange={handleChange}
+                    variant="outlined"
+                    fullWidth
                     placeholder="Enter your review..."
                 />
-                <button onClick={handleAddReview}>Submit Review</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-            </div>
-        </div>
-        
-    )
+                {error && <Typography variant="body2" color="error"> {error}</Typography>}
+                <Button 
+                    variant="contained" 
+                    onClick={handleAddReview}
+                    sx={{ "&:hover": { backgroundColor: '#2196f3' }}}
+                >
+                
+                    Submit Review
+                </Button>
+                
+            </Paper>
+        </Box>
+    );
 }
 
 export default ReviewList
