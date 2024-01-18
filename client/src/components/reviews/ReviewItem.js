@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext} from "react-router-dom";
 import { Button, Fade, IconButton, Menu, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -10,9 +11,14 @@ function ReviewItem({
     updated, 
     cardId, 
     onUpdateReview, 
-    onDeleteReview, 
- }) {
+    onDeleteReview
+}) {
 
+    const { 
+        onUpdateReviewCard,
+        onDelReviewCard
+    } = useOutletContext();
+ 
     const [anchorEl, setAnchorEl] = useState(null);
     const [isEditing, setEditing] = useState(false);
     const [editedReview, setEditedReview] = useState(review);
@@ -44,8 +50,6 @@ function ReviewItem({
         }
     }
 
-    console.log(error)
-
     // patch request
     const handleSaveReview = () => {
         console.log("Save Changes Clicked");
@@ -75,8 +79,8 @@ function ReviewItem({
                 } throw new Error(`Error updating review - ${resp.status}`);
             })
             .then(data => {
-                // update the review
                 onUpdateReview(data);
+                onUpdateReviewCard(data);
                 console.log("Review updated:", data);
             })
             .catch(error => {
@@ -100,8 +104,8 @@ function ReviewItem({
             } throw new Error(`Error deleting review - ${resp.status}`);
         })
         .then(data => {
-            // delete the review
             onDeleteReview(id);
+            onDelReviewCard(id);
             console.log(data);
         })
         .catch(error => {

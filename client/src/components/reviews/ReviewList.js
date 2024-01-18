@@ -8,7 +8,8 @@ function ReviewList() {
     const { id } = useParams();
 
     const { 
-        allCardItems
+        allCardItems,
+        onAddReviewCard
     } = useOutletContext();
 
     const [currentCard, setCurrentCard] = useState([]);
@@ -99,8 +100,8 @@ function ReviewList() {
                 } throw new Error(`Error adding review - ${resp.status}`);
             }) 
             .then(data => {
-                // add the review
                 onAddReview(data)
+                onAddReviewCard(data)
                 setNewReview("");
                 setError("")
             })

@@ -15,8 +15,51 @@ function Layout() {
             .then(setAllCardItems)
     }, []);
 
+    function onAddReviewCard(newReview) {
+        setAllCardItems(allCardItems => allCardItems.map(card => {
+            if (card.id === newReview.card_id) {
+                const newCard = {
+                    ...card,
+                    reviews: [...card.reviews, newReview]
+                };
+                return newCard;
+            }
+            return card;
+        }));
+    }
+    
+    function onUpdateReviewCard(updatedReview) {
+        setAllCardItems(allCardItems => allCardItems.map(card => {
+            if (card.reviews.some(review => review.id === updatedReview.id)) {
+                const newCard = {
+                    ...card,
+                    reviews: card.reviews.map(review =>
+                        review.id === updatedReview.id ? updatedReview : review
+                    )
+                };
+                return newCard;
+            } return card;
+        }));
+    }
+
+    function onDelReviewCard(reviewId) {
+        setAllCardItems(allCardItems => allCardItems.map(card => {
+            if (card.reviews.some(review => review.id === reviewId)) {
+                const newCard = {
+                    ...card,
+                    reviews: card.reviews.filter(review => review.id !== reviewId)
+                };
+                return newCard;
+            }
+            return card;
+        }));
+    }
+
     const context = {
-        allCardItems
+        allCardItems,
+        onAddReviewCard,
+        onUpdateReviewCard,
+        onDelReviewCard
     }
 
     return (
