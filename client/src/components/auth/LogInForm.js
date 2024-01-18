@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Formik, Form, Field, ErrorMessage} from "formik";
+import { Formik, Form, ErrorMessage} from "formik";
 import { Button, TextField, FormControlLabel, Checkbox, Link, Typography } from "@mui/material";
 import * as Yup from "yup";
 import "../../styling/auth.css"
@@ -32,7 +32,7 @@ function LogInForm() {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            {({ values, handleChange, handleBlur, setFieldValue, setFieldTouched }) => (
+            {({ values, handleChange, handleBlur }) => (
                 <Form className="login-form">
                     <Typography variant="h6" align="center">Login</Typography>
                     <TextField
@@ -44,11 +44,7 @@ function LogInForm() {
                         margin="normal"
                         autoComplete="off"
                         value={values.email}
-                        onChange={(e) => {
-                            handleChange(e);
-                            setFieldValue("email", e.target.value);
-                            setFieldTouched("email", true, false);
-                        }}
+                        onChange={handleChange}
                         onBlur={handleBlur}
                         />
                     <ErrorMessage name="email">
