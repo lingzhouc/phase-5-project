@@ -69,7 +69,7 @@ function CreditCardInfo() {
                 intro_apr: "Intro APR: ",
                 reg_apr: "Regular APR: ",
                 other_details: "Other: ",
-                user_type: "Card: ",
+                user_type: "Card Type: ",
                 secured: "Secured: ",
                 earnings: "Earning Rate: "
             }

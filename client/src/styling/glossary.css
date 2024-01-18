@@ -2,6 +2,7 @@
 #glossary-container {
     display: flex;
     margin-top: 20px;
+    justify-content: space-around;
 }
 
 #alphabet-list {
@@ -13,9 +14,12 @@
     background-color: #e2e1e1;
     border-style: groove solid groove solid;
     border-color: #e2e1e1;
+    max-width: 90%;
 }
 
 .alphabet-link {
+    display: block;
+    text-align: center;
     color: inherit; 
     transition: background-color 0.4s;
 }
@@ -28,6 +32,7 @@
 /* glossary item */
 .glossary-card {
     margin-bottom: 16px;
+    max-width: 90%;
 }
 
 .more-info-container {

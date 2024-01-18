@@ -31,7 +31,7 @@ function Glossary() {
                 <Typography className="letter-header" variant="h4" gutterBottom>
                     {letter}
                 </Typography>
-                <Divider />
+                <Divider sx={{ maxWidth: "90%", marginBottom: "1rem" }} />
                 <List>
                 {items
                     .sort((a, b) => a.term.localeCompare(b.term))
@@ -58,7 +58,9 @@ function Glossary() {
                             key={letter} 
                             component="a" 
                             href={`#${letter}`}
-                            className="alphabet-link">
+                            className="alphabet-link"
+                            sx={{width: "65px", padding:".5rem", margin:".5rem"}}
+                        >
                             {letter}
                         </ListItem>
                     ))}

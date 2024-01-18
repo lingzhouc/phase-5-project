@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useOutletContext} from "react-router-dom";
 import { Button, Fade, IconButton, Menu, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import "../../styling/reviews.css"
 
 function ReviewItem({ 
     id, 

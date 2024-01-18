@@ -1,0 +1,9 @@
+.review-box {
+    width: 60%;
+    margin: 2rem auto;
+}
+
+.review-card-img {
+    max-width: 100%;
+    margin: 1rem;
+}

@@ -2,6 +2,7 @@ import ReviewItem from "./ReviewItem";
 import { useEffect, useState } from "react";
 import { useParams, useOutletContext} from "react-router-dom";
 import { Box, Button, Paper, TextField, Typography} from "@mui/material";
+import "../../styling/reviews.css"
 
 function ReviewList() {
 
@@ -114,7 +115,7 @@ function ReviewList() {
     return (
         <Box className="review-box" sx={{ padding: 2 }}>
             <Typography variant="h4">{currentCard.name}</Typography>
-            <img src={currentCard.img} alt={currentCard.name} style={{ maxWidth: "100%", marginBottom: 2 }} />
+            <img className="review-card-img" src={currentCard.img} alt={currentCard.name}/>
             {renderReviewItems}
 
             <Paper elevation={3} sx={{ padding: 2, marginTop: 2 }}>
