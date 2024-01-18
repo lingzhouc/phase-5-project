@@ -51,10 +51,10 @@ function CreditCardInfo() {
             "bal_trans_fee",
             "intro_apr",
             "reg_apr",
-            "other_details",
             "user_type",
             "secured",
-            "earnings"
+            "earnings",
+            "other_details"
         ];
         
         const nonEmptyProperties = displayKeys.filter(key => currentCard[key] !== undefined && currentCard[key] !== "");
@@ -69,19 +69,26 @@ function CreditCardInfo() {
                 intro_apr: "Intro APR: ",
                 reg_apr: "Regular APR: ",
                 other_details: "Other: ",
-                user_type: "For: ",
-                secured: "Card Type: ",
+                user_type: "Card: ",
+                secured: "Secured: ",
                 earnings: "Earning Rate: "
             }
 
             const customText = customTextMap[propertyKey] || "";
+            let formattedValue = currentCard[propertyKey];
+
+            if (propertyKey === 'user_type') {
+                formattedValue = `${formattedValue.charAt(0).toUpperCase()}${formattedValue.slice(1)}`;
+            } else if (propertyKey === 'secured') {
+                formattedValue = `${formattedValue ? 'Yes' : 'No'}`;
+            }
 
             return (
                 <Typography key={propertyKey} className="card-info" variant="body2" color="textSecondary">
                     {customText === "Annual Fee: " ? (
-                        <span><strong>{customText}</strong>{'$' + currentCard[propertyKey]}</span>
+                        <span><strong>{customText}</strong>{'$' + formattedValue}</span>
                     ) : (
-                        <span><strong>{customText}</strong>{currentCard[propertyKey]}</span>
+                        <span><strong>{customText}</strong>{formattedValue}</span>
                     )}
                 </Typography>
             )   
