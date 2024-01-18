@@ -1,62 +1,102 @@
-import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import { useState } from "react";
+import { Formik, Form, Field, ErrorMessage} from "formik";
+import { Button, TextField, FormControlLabel, Checkbox, Link, Typography } from "@mui/material";
 import * as Yup from "yup";
-// import TextField from "@material-ui/core/Textfield";
-// import Button from "@material-ui/core/Button";
-// import Box from "@material-ui/core/Box";
+import "../../styling/auth.css"
 
 function LogInForm() {
-    const [showPassword, setShowPassword] = useState(false)
-
+    const [showPassword, setShowPassword] = useState(false);
+  
     const initialValues = {
         email: "",
         password: "",
     };
-
+  
     const validationSchema = Yup.object({
         email: Yup.string().email("Invalid email address").required("Required"),
         password: Yup.string().required("Required"),
     });
-
+  
     const handleTogglePassword = () => {
-        setShowPassword(!showPassword)
-    }
-
+        setShowPassword(!showPassword);
+    };
+  
     const onSubmit = (values) => {
         // handle login logic
         console.log("Login form submitted with values:", values);
     };
-
+  
     return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema}>
-            <Form>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <Field type="email" id="email" name="email" />
-                    <ErrorMessage name="email" component="div" />
-                </div>
-
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <Field 
+        <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+        >
+            {({ values, handleChange, handleBlur, setFieldValue, setFieldTouched }) => (
+                <Form className="login-form">
+                    <Typography variant="h6" align="center">Login</Typography>
+                    <TextField
+                        fullWidth
+                        label="Email"
+                        variant="outlined"
+                        id="email"
+                        name="email"
+                        margin="normal"
+                        autoComplete="off"
+                        value={values.email}
+                        onChange={(e) => {
+                            handleChange(e);
+                            setFieldValue("email", e.target.value);
+                            setFieldTouched("email", true, false);
+                        }}
+                        onBlur={handleBlur}
+                        />
+                    <ErrorMessage name="email">
+                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+        
+                    <TextField
+                        fullWidth
+                        label="Password"
+                        variant="outlined"
+                        id="password"
+                        name="password"
+                        margin="normal"
+                        autoComplete="off"
                         type={showPassword ? "text" : "password"}
-                        id="password" 
-                        name="password" 
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                     />
-                    <input
-                        type="checkbox"
-                        id="showPassword"
-                        name="showPassword"
-                        onChange={handleTogglePassword}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                            id="showPassword"
+                            name="showPassword"
+                            onChange={handleTogglePassword}
+                            color="primary"
+                            />
+                        }
+                        label="Show Password"
                     />
-                    <label htmlFor="showPassword">Show Password</label>
-                    <ErrorMessage name="password" component="div" />
-                </div>
-
-                <button type="submit">Login</button>
-            </Form>
+                    <ErrorMessage name="password">
+                        {(msg) => <div style={{ color: "red" }}>{msg}</div>}
+                    </ErrorMessage>
+        
+                    <Button type="submit" variant="contained" color="primary" fullWidth>
+                        Login
+                    </Button>
+        
+                    <Typography variant="body2" align="center" style={{ marginTop: "10px" }}>
+                        Don't have an account?{" "}
+                        <Link href="/signup" underline="hover">
+                            Sign Up
+                        </Link>
+                    </Typography>
+                </Form>
+            )}
         </Formik>
-    )
-}
+    );
+  }
 
-export default LogInForm
+  export default LogInForm;
