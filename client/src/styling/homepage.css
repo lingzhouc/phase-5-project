@@ -1,10 +1,22 @@
-#home-container {
-    text-align: center;
-  }
-  
 .center-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+}
+
+#home-container {
+    text-align: center;
+	position: relative;
+}
+
+.welcome-link {
+    text-decoration: none;
+	color: inherit; 
+	transition: font-size 0.3s ease-in-out;
+}
+
+.welcome-link:hover {
+	font-weight: 400;
+	font-size: 1.5em;
 }
