@@ -134,12 +134,10 @@ function ReviewItem({
                     TransitionComponent={Fade}  // transition for quicker disappearance
                     transitionDuration={5}    //  (in milliseconds) 
                 >    
-                    {!isEditing && (
-                        <>
-                            <MenuItem onClick={handleEditReview}>Edit Review</MenuItem>
-                            <MenuItem onClick={handleDeleteReview}>Delete Review</MenuItem>
-                        </>
-                    )}
+                     {!isEditing && [
+                        <MenuItem key="edit"onClick={handleEditReview}>Edit Review</MenuItem>,
+                        <MenuItem key="delete" onClick={handleDeleteReview}>Delete Review</MenuItem>
+                    ]}
                 </Menu>
             </div>
 
