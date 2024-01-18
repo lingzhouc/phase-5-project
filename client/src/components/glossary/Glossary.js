@@ -7,6 +7,8 @@ function Glossary() {
 
     const [allGlossaryItems, setGlossaryItems] = useState([])
 
+    console.log(allGlossaryItems)
+
     useEffect(() => {
         fetch(`/glossary`)
             .then(resp => resp.json())
@@ -21,25 +23,31 @@ function Glossary() {
 
     const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
-    const renderGlossarySection = ([letter, items]) => (
-        <div key={letter} id={letter}>
-            <Typography className="letter-header" variant="h4" gutterBottom>
-                {letter}
-            </Typography>
-            <Divider />
-            <List>
-                {items.map((item) => (
+    const renderGlossary = () => {
+        const sortedGlossary = Object.entries(glossaryMap).sort((a, b) => a[0].localeCompare(b[0]));
+      
+        return sortedGlossary.map(([letter, items]) => (
+            <div key={letter} id={letter}>
+                <Typography className="letter-header" variant="h4" gutterBottom>
+                    {letter}
+                </Typography>
+                <Divider />
+                <List>
+                {items
+                    .sort((a, b) => a.term.localeCompare(b.term))
+                    .map((item) => (
                     <GlossaryItem
                         key={item.id}
                         id={item.id}
                         term={item.term}
                         definition={item.definition}
-                        moreInfo={item.moreInfo}
+                        moreInfo={item.more_info}
                     />
-                ))}
-            </List>
-        </div>
-    );
+                    ))}
+                </List>
+            </div>
+        ));
+    };
     
     return (
         <Container id="glossary-container">
@@ -56,7 +64,7 @@ function Glossary() {
                     ))}
                 </List>
             </div>
-            <div>{Object.entries(glossaryMap).map(renderGlossarySection)}</div>
+            <div>{renderGlossary()}</div>
         </Container>
     )
 }
